@@ -1,5 +1,6 @@
 Flask
 websocket-client
-flask-socketio
 gevent
 gevent-websocket
+Flask-Sockets
+futures

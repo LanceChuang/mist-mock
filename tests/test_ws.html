@@ -1,7 +1,19 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
-<script type="text/javascript" charset="utf-8">
-    var socket = io('http://localhost:1999/v2/api/ws/jobs/');
-    socket.on('connect', function() {
-        socket.emit('my event', {data: 'I\'m connected!'});
-    });
-</script>
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript">
+       var ws = new WebSocket("ws://localhost:1999/v2/api/ws/jobs/lci_2_1_collect_metrics_mock");
+       ws.onopen = function(msg) {
+           ws.send("Here's some text that the server is urgently awaiting!");
+           console.log(msg);
+       };
+       ws.onmessage = function (event) {
+           console.log(event.data);
+       }
+       ws.onclose = function(evt) {
+           alert("socket closed");
+       };
+    </script>
+  </head>
+</html>
