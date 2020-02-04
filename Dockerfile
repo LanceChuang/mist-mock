@@ -4,12 +4,14 @@ MAINTAINER "lchuang@ninthdecimal.com"
 
 RUN apk add build-base
 
-WORKDIR /app
+COPY . /app
 
-COPY ./requirements.txt /app
+WORKDIR /app
 
 RUN pip install -r requirements.txt
 
-COPY . /app
+ENTRYPOINT ["python"]
 
-CMD [ "app.py" ]
+EXPOSE 1999
+
+CMD ["app/app.py"]

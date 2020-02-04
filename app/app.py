@@ -7,8 +7,7 @@ import json
 import time
 
 app = Flask(__name__)
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-# socketio = SocketIO(app, cors_allowed_origins='*')
+# app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 sockets = Sockets(app)
 
 # mock events table
@@ -111,7 +110,7 @@ def run_job_mock(function_id):
 @sockets.route('/v2/api/ws/jobs/<function_id>')
 def hello(ws, function_id):
     while not ws.closed:
-        print "function ID is " + str(function_id)
+        print("function ID is " + str(function_id))
         ret = get_event_ret(function_id)
         ws.send(json.dumps(ret))
         ws.close()
@@ -124,6 +123,6 @@ if __name__ == "__main__":
     from gevent import pywsgi
     from geventwebsocket.handler import WebSocketHandler
 
-    server = pywsgi.WSGIServer(('localhost', 1999), app, handler_class=WebSocketHandler)
+    server = pywsgi.WSGIServer(('0.0.0.0', 1999), app, handler_class=WebSocketHandler)
     s = Process(target=server.serve_forever, kwargs=dict(stop_timeout=1))
     s.start()
